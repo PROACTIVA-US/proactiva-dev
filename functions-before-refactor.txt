@@ -1,0 +1,36 @@
+[1mName[0m                          [1mDescription[0m
+agent-collaboration           Sprint 3, Function 7: Agent collaboration (prep for A2A)
+assign-task-to-agent          Sprint 5, Function 4: Assign task to agent
+create-agent                  Sprint 2, Function 1: Create a basic agent
+create-code-agent             Sprint 3, Function 1: Create specialized code agent
+create-performance-agent      Sprint 4, Function 1: Create performance agent
+create-review-agent           Sprint 4, Function 3: Create review agent
+create-security-agent         Sprint 3, Function 5: Create security agent
+create-test-agent             Sprint 3, Function 3: Create test agent
+create-workflow               Sprint 5, Function 1: Create workflow
+execute-agent                 Sprint 2, Function 2: Execute agent with task
+execute-agent-pipeline        Sprint 2, Function 3: Multi-agent pipeline
+execute-agent-with-tools      Sprint 2, Function 4: Agent with tools
+execute-container             Sprint 1, Function 2: Execute a simple container
+execute-parallel-workflow     Sprint 5, Function 5: Parallel workflow execution
+execute-with-logging          Sprint 1, Function 6: Basic observability
+execute-with-tools            Sprint 1, Function 5: Execute with tools
+execute-workflow              Sprint 5, Function 2: Execute workflow
+generate-code                 Sprint 3, Function 2: Execute code generation task
+generate-tests                Sprint 3, Function 4: Generate tests for code
+get-agent-capability-matrix   Sprint 4, Function 8: Agent capability matrix
+get-agent-metrics             Sprint 2, Function 6: Agent performance metrics
+get-tool-recommendations      Sprint 4, Function 6: Get tool recommendations
+get-workflow-status           Sprint 5, Function 6: Get workflow status
+initialize-tool-registry      Sprint 4, Function 5: Initialize tool registry
+load-state                    Sprint 1, Function 4: Load state
+profile-performance           Sprint 4, Function 2: Profile code performance
+review-code                   Sprint 4, Function 4: Review code
+run-complete-orchestration    Sprint 5, Function 8: Complete orchestration demo
+run-review-pipeline           Sprint 4, Function 7: Multi-agent review pipeline
+save-state                    Sprint 1, Function 3: Basic state management
+scan-security                 Sprint 3, Function 6: Security scan
+schedule-task                 Sprint 5, Function 3: Schedule task
+select-agent-for-task         Sprint 5, Function 7: Dynamic agent selection
+test-connection               Sprint 1, Function 1: Test the module works at all
+update-agent-memory           Sprint 2, Function 5: Agent memory management
