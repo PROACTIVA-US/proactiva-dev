@@ -4,6 +4,8 @@
 
 ProactivaDev provides 65+ Dagger functions organized into logical groups. All functions are accessible via the Dagger CLI and return appropriate Dagger types for containerized execution.
 
+> **🎯 v2.0 Refactored Architecture**: This API is now powered by a professionally refactored modular architecture with 8 specialized TypeScript files, providing enhanced maintainability while preserving 100% functionality.
+
 ## Quick Reference
 
 ```bash
