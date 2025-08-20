@@ -160,7 +160,7 @@ func executeHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
     // Read HTML dashboard from file
-    dashboardHTML, err := os.ReadFile("/dashboard.html")
+    dashboardHTML, err := os.ReadFile("/app/dashboard.html")
     if err != nil {
         log.Fatal("Failed to read dashboard HTML:", err)
     }
