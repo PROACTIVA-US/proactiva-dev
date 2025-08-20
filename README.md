@@ -24,9 +24,25 @@ dagger develop
 ```
 
 ### Launch Web Dashboard
+
+#### Quick Start (One Command)
 ```bash
+# Simplest way - just run this:
+./dashboard
+
+# Dashboard opens automatically at http://localhost:8080
+```
+
+#### Alternative Methods
+```bash
+# Method 1: Direct Go execution
+go run web-server.go
+
+# Method 2: Via Dagger (production)
 dagger call start-web-management-interface up --ports 8080:8080
-# Open http://localhost:8080 in your browser
+
+# Method 3: Local script with fallback
+./start-local.sh
 ```
 
 ## 🌟 Key Features
@@ -44,10 +60,12 @@ dagger call start-web-management-interface up --ports 8080:8080
 - **Emergent Insights**: Discovers high-level system behaviors and optimizations
 
 ### 🌐 Web Management Interface
-- **Real-time Dashboard** with professional gradient UI
+- **Real-time Dashboard** with glass morphism UI and dark/light themes
 - **Interactive Charts** using Chart.js for success rates and fitness evolution
 - **Live System Monitoring** with Server-Sent Events (SSE)
 - **Component Status** tracking for all system components
+- **Integrated Test Suite** with standard and advanced test capabilities
+- **Real Connection Status** showing actual Dagger system state
 - **Quick Actions** for system operations (initialize, test, evolve, export)
 
 ### 🔗 A2A Communication

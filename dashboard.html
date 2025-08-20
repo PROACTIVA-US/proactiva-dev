@@ -635,6 +635,41 @@
             </div>
             
             <div class="card">
+                <h2>🧪 Standard Tests</h2>
+                <p style="color: var(--muted-foreground); font-size: 14px; margin-bottom: 16px;">
+                    Safe, quick tests for regular validation
+                </p>
+                <button onclick="runTestSuite('quick')" title="30 second validation">Quick Test</button>
+                <button onclick="runTestSuite('agents')" title="Test agent creation and execution">Agent Test</button>
+                <button onclick="runTestSuite('a2a')" title="Test A2A communication mesh">A2A Test</button>
+                <button onclick="runTestSuite('learning')" title="Test collective learning">Learning Test</button>
+                <div id="test-progress" class="alert info" style="display: none;">
+                    <div class="loading"></div>
+                    <span id="test-status">Running test...</span>
+                </div>
+                <div id="test-result" class="alert" style="margin-top: 12px;"></div>
+            </div>
+            
+            <div class="card" style="border: 2px solid var(--warning); background: rgba(245, 158, 11, 0.05);">
+                <h2>⚠️ Advanced Tests</h2>
+                <div class="alert" style="background: rgba(245, 158, 11, 0.1); color: var(--warning); border-color: var(--warning); display: block; margin-bottom: 16px;">
+                    <strong>Warning:</strong> These tests are resource-intensive and may take several minutes. 
+                    The stress test spawns multiple parallel agents and uses significant CPU/memory.
+                </div>
+                <button onclick="runAdvancedTest('pipeline')" class="secondary" title="Multi-agent collaborative pipeline (2-3 min)">
+                    🔄 Pipeline Test
+                </button>
+                <button onclick="runAdvancedTest('stress')" class="secondary" style="border-color: var(--warning);" title="Heavy load test with 10+ agents (5+ min)">
+                    💪 Stress Test
+                </button>
+                <div id="advanced-test-progress" class="alert info" style="display: none;">
+                    <div class="loading"></div>
+                    <span id="advanced-test-status">Running advanced test...</span>
+                </div>
+                <div id="advanced-test-result" class="alert" style="margin-top: 12px;"></div>
+            </div>
+            
+            <div class="card">
                 <h2>📡 Real-time Events</h2>
                 <div id="event-log">
                     <div class="event-entry">Waiting for events...</div>
@@ -842,6 +877,144 @@
             setTimeout(() => {
                 alert.classList.remove('show');
             }, 5000);
+        }
+        
+        // Run advanced test with confirmation
+        async function runAdvancedTest(suite) {
+            // Show confirmation dialog for resource-intensive tests
+            const confirmMessages = {
+                'pipeline': 'This will run a multi-agent pipeline test that takes 2-3 minutes. Continue?',
+                'stress': 'WARNING: This stress test will spawn 10+ parallel agents and use significant CPU/memory for 5+ minutes. Continue?'
+            };
+            
+            if (!confirm(confirmMessages[suite] || 'Run advanced test?')) {
+                return;
+            }
+            
+            // Use different IDs for advanced tests
+            const progressDiv = document.getElementById('advanced-test-progress');
+            const statusSpan = document.getElementById('advanced-test-status');
+            const resultDiv = document.getElementById('advanced-test-result');
+            
+            // Show progress
+            progressDiv.style.display = 'flex';
+            progressDiv.style.alignItems = 'center';
+            progressDiv.style.gap = '12px';
+            resultDiv.className = 'alert';
+            resultDiv.textContent = '';
+            
+            const suiteNames = {
+                'pipeline': 'Pipeline Test (Multi-Agent Collaboration)',
+                'stress': 'Stress Test (Heavy Load)'
+            };
+            
+            statusSpan.textContent = `Running ${suiteNames[suite]}... This may take several minutes`;
+            
+            try {
+                const response = await fetch('/api/test', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ suite })
+                });
+                
+                const result = await response.json();
+                
+                // Hide progress
+                progressDiv.style.display = 'none';
+                
+                // Show results
+                if (result.success) {
+                    resultDiv.className = 'alert success show';
+                    resultDiv.innerHTML = `
+                        <strong>✅ ${suiteNames[suite]} Completed!</strong><br>
+                        <small>${result.message || ''}</small>
+                        ${result.details ? '<br><pre style="margin-top: 8px; font-size: 11px;">' + result.details + '</pre>' : ''}
+                    `;
+                } else {
+                    resultDiv.className = 'alert error show';
+                    resultDiv.innerHTML = `
+                        <strong>❌ ${suiteNames[suite]} Failed</strong><br>
+                        <small>${result.error || 'Unknown error'}</small>
+                    `;
+                }
+                
+                // Add to event log with warning icon for stress test
+                addEvent({
+                    event: `⚠️ Advanced Test: ${suiteNames[suite]} - ${result.success ? 'COMPLETED' : 'FAILED'}`,
+                    timestamp: new Date().toISOString()
+                });
+                
+            } catch (error) {
+                progressDiv.style.display = 'none';
+                resultDiv.className = 'alert error show';
+                resultDiv.textContent = `❌ Test error: ${error}`;
+            }
+        }
+        
+        // Run test suite from UI
+        async function runTestSuite(suite) {
+            const progressDiv = document.getElementById('test-progress');
+            const statusSpan = document.getElementById('test-status');
+            const resultDiv = document.getElementById('test-result');
+            
+            // Show progress
+            progressDiv.style.display = 'flex';
+            progressDiv.style.alignItems = 'center';
+            progressDiv.style.gap = '12px';
+            resultDiv.className = 'alert';
+            resultDiv.textContent = '';
+            
+            // Update status based on suite
+            const suiteNames = {
+                'quick': 'Quick Connection Test',
+                'agents': 'Agent Creation & Execution Test',
+                'a2a': 'A2A Communication Test',
+                'learning': 'Collective Learning Test',
+                'pipeline': 'Code Review Pipeline Test',
+                'stress': 'Stress Test with 10 Agents'
+            };
+            
+            statusSpan.textContent = `Running ${suiteNames[suite]}...`;
+            
+            try {
+                const response = await fetch('/api/test', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ suite })
+                });
+                
+                const result = await response.json();
+                
+                // Hide progress
+                progressDiv.style.display = 'none';
+                
+                // Show results
+                if (result.success) {
+                    resultDiv.className = 'alert success show';
+                    resultDiv.innerHTML = `
+                        <strong>✅ ${suiteNames[suite]} Passed!</strong><br>
+                        <small>${result.message || ''}</small>
+                        ${result.details ? '<br><pre style="margin-top: 8px; font-size: 11px;">' + result.details + '</pre>' : ''}
+                    `;
+                } else {
+                    resultDiv.className = 'alert error show';
+                    resultDiv.innerHTML = `
+                        <strong>❌ ${suiteNames[suite]} Failed</strong><br>
+                        <small>${result.error || 'Unknown error'}</small>
+                    `;
+                }
+                
+                // Add to event log
+                addEvent({
+                    event: `Test Suite: ${suiteNames[suite]} - ${result.success ? 'PASSED' : 'FAILED'}`,
+                    timestamp: new Date().toISOString()
+                });
+                
+            } catch (error) {
+                progressDiv.style.display = 'none';
+                resultDiv.className = 'alert error show';
+                resultDiv.textContent = `❌ Test error: ${error}`;
+            }
         }
         
         // Start real-time updates
